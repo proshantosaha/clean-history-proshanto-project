@@ -1,4 +1,7 @@
 import React from 'react'
+// import TaglistItem from './conponent/TaglistItem';
+import './App.css';
+
 const task = {
   id:'uniquw_id_oo1',
   subtitle: "Subtitle",
@@ -12,7 +15,7 @@ const task = {
      {
       id:'tag_002',
       text:"its cancelled",
-      icon:"x",
+      icon:"m",
      },
      {
       id:'tag_003',
@@ -72,57 +75,89 @@ function getDay(dateStr){
         "Thursday",
         "Friday",
         "Saturday",
-       
-
       ]
     return days [date]
 }
 
 function formateDate(dateStr){
   const date = new Date(dateStr);
-  return `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`
+  return `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`;
 }
 
 
+const TagListItem=({tag})=>{
+  return(
+    <li key={tag.id}>
+      <small>{tag.icon}</small> - {tag.text}
+    </li>
+  );
+  
+  }
 
-
-
-
-const App = () => {
-  return (
-    <div>
-      <h1>{getDay(task.createAt)},{formateDate(task.createAt)}</h1>
-      <h3>Sub title </h3>
-      <ul>
-        {task.tags.map((tags)=>(
-          <li key={tags.id}>
-            <small>{tags.icon}</small> - {tags.text}
-          </li>
-        ))}
-      </ul>
-      <hr/>
-      <p>Notes linked to people</p>
-      <div>
-        {task.comments.map(comments=>(
-          <div key={comments.id}>
-            <h3>{comments.user.name}</h3>
-            <p>{comments.text}</p>
-            {/* <h3>{comments.user.id}</h3> */}
+const CommentsListItem=({comments})=>{
+  return(
+    < div className='comment-item' key={comments.id}>
+        <h3>{comments.user.name}</h3>
+        <p>{comments.text}</p>
+        {/* <h3>{comments.user.id}</h3> */}
            
-          </div>
-        ))}
       </div>
+  );
+  
+  }
 
-      <ul>
-        {task.tasks.map(task=>(
-          <li key={task.id}>
+  const TaskListItem=({task})=>{
+    return(
+      <li key={task.id}>
             <h3>{task.title}</h3>
             <p><small>{task.text}</small></p>
             <p>{task.status}</p>
           </li>
-        ))}
-      </ul>
+    );
+    
+    }
+
+
+const TaskCard = ({task})=>{
+
+  return(
+    <div className='day-card'>
+    <h1 className='title'>{getDay(task.createAt)},{formateDate(task.createAt)}</h1>
+    <h3 className='sub-title'>Sub title </h3>
+    <ul className='tag-ul '>
+      {task.tags.map((tag)=>(
+      <TagListItem key={tag.id} tag={tag}/>
+      ))}
+    </ul>
+   <div className='line'></div>
+    <p className='notes'>Notes linked to people</p>
+    <div className='comments'>
+      {task.comments.map(comments=>(
+        <CommentsListItem key={comments.id} comments={comments }/>
+      ))}
     </div>
+
+    <ul className='task-ul'>
+      {task.tasks.map(task=>(
+        <TaskListItem key={task.id} task={task}/>
+      ))}
+    </ul>
+  </div>
+  )
+}
+
+
+const App = () => {
+  return (
+    <div className='grid-group'>
+      {/* <TaskCard/> */}
+
+      {tasks.map(task=>(
+        <TaskCard key={task.id} task={task}/>
+      ))}
+      
+    </div>
+
   )
 }
 
