@@ -1,4 +1,4 @@
-import React from 'react'
+// import React from 'react'
 // import TaglistItem from './conponent/TaglistItem';
 import './App.css';
 
@@ -60,7 +60,7 @@ const task = {
 {   id:'task_4',
   title:'Albert Elinstein'   ,
   text:'its in progress'  ,
-  status:'progress',
+  status:'progress'
 }
 ]
 };
@@ -118,19 +118,26 @@ const CommentsListItem=({comments})=>{
     }
 
 
-const TaskCard = ({task})=>{
+const TaskCard = ()=>{
+
 
   return(
     <div className='day-card'>
+
     <h1 className='title'>{getDay(task.createAt)},{formateDate(task.createAt)}</h1>
+
     <h3 className='sub-title'>Sub title </h3>
+
     <ul className='tag-ul '>
       {task.tags.map((tag)=>(
       <TagListItem key={tag.id} tag={tag}/>
       ))}
     </ul>
+
    <div className='line'></div>
+
     <p className='notes'>Notes linked to people</p>
+    
     <div className='comments'>
       {task.comments.map(comments=>(
         <CommentsListItem key={comments.id} comments={comments }/>
@@ -150,12 +157,11 @@ const TaskCard = ({task})=>{
 const App = () => {
   return (
     <div className='grid-group'>
-      {/* <TaskCard/> */}
-
-      {tasks.map(task=>(
+   <TaskCard/>
+      {/* {tasks.map(task=>(
         <TaskCard key={task.id} task={task}/>
       ))}
-      
+       */}
     </div>
 
   )

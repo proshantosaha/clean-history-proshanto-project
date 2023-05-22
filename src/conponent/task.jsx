@@ -60,5 +60,4 @@ const task = {
     status:'progress',
   }
   ]
-  };
-  export default task
+  }
